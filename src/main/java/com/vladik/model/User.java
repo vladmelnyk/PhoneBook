@@ -1,7 +1,7 @@
 package com.vladik.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "Users", schema = "Phonebook")
@@ -12,8 +12,10 @@ public class User {
     private String firstName;
     private String middleName;
     private String lastName;
-    private Set<Contact> contacts;
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private List<Contact> contacts;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -74,11 +76,11 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    public Set<Contact> getContacts() {
+    public List<Contact> getContacts() {
         return contacts;
     }
 
-    public void setContacts(Set<Contact> contacts) {
+    public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
     }
 
@@ -123,10 +125,10 @@ public class User {
                 '}';
     }
 
-    private String showContacts(){
+    private String showContacts() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Contact contact: contacts
-             ) {
+        for (Contact contact : contacts
+                ) {
             stringBuilder.append(contact.getLastName());
         }
         return stringBuilder.toString();

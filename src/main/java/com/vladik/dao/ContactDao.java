@@ -1,10 +1,13 @@
 package com.vladik.dao;
 
 import com.vladik.model.Contact;
-import org.springframework.data.repository.CrudRepository;
+import com.vladik.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
-public interface ContactDao extends CrudRepository<Contact, Integer> {
+public interface ContactDao extends JpaRepository<Contact, Integer> {
+    public List<Contact> findByUser (User user);
 }
