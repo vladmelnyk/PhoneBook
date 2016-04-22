@@ -6,6 +6,7 @@
 <%@include file='header.jsp'%>
 <body>
 <h1>Welcome!</h1>
-<p>Click <a href="<spring:url value='/main/contacts' />">here</a> to see contacts.</p>
+<p>Click <a href="<spring:url value='/main/login' />">here</a> to login</p>
+<p>Click <a href="<spring:url value='/main/signup' />">here</a> to register</p>
 </body>
 </html>

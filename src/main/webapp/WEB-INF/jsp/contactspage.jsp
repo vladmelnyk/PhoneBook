@@ -1,14 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<%@include file='header.jsp'%>
+<%@include file='header.jsp' %>
 <body>
 <h1>Contacts</h1>
 
-<c:url var="addUrl" value="/main/contacts/add" />
-<table style="border: 1px solid; width: 500px; text-align:center">
+<c:url var="addUrl" value="/contacts/createview"/>
+<c:url var="editUrl" value="/contacts/editview"/>
+<c:url var="deleteUrl" value="/contacts/delete"/>
+<c:url var="logoutUrl" value="/main/logout"/>
+<table style="border: 1px solid; width: 800px; text-align:center">
     <thead style="background:#cfc">
     <tr>
         <th>First Name</th>
@@ -17,46 +20,72 @@
         <th>Mobile Number</th>
         <th>Phone Number</th>
         <th>Email</th>
-        <th colspan="6"></th>
+        <th colspan="8"></th>
+    </tr>
+    <tr>
+        <form action="/contacts" method="POST">
+            <c:forEach var="i" begin="0" end="8">
+                <th>
+                    <c:choose>
+                        <c:when test="${i==0}">
+                            <input type="TEXT" name="first_name_exp">
+                        </c:when>
+                        <c:when test="${i==3}">
+                            <input type="TEXT" name="mobile_number_exp">
+                        </c:when>
+                        <c:when test="${i==8}">
+                            <input type="SUBMIT" value="Search">
+                        </c:when>
+                    </c:choose>
+                </th>
+            </c:forEach>
+
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
     </tr>
     </thead>
     <tbody>
     <c:forEach items="${contacts}" var="contact">
-        <c:url var="editUrl" value="/main/contacts/edit?id=${contact.id}" />
-        <c:url var="deleteUrl" value="/main/contacts/delete?id=${contact.id}" />
+
         <tr>
-            <td><c:out value="${contact.firstName}" /></td>
-            <td><c:out value="${contact.middleName}" /></td>
-            <td><c:out value="${contact.lastName}" /></td>
-            <td><c:out value="${contact.mobileNumber}" /></td>
-            <td><c:out value="${contact.phoneNumber}" /></td>
-            <td><c:out value="${contact.email}" /></td>
-            <td><a href="${editUrl}">Edit</a></td>
-            <td><a href="${deleteUrl}">Delete</a></td>
-            <td><a href="${addUrl}">Add</a></td>
+            <td><c:out value="${contact.firstName}"/></td>
+            <td><c:out value="${contact.middleName}"/></td>
+            <td><c:out value="${contact.lastName}"/></td>
+            <td><c:out value="${contact.mobileNumber}"/></td>
+            <td><c:out value="${contact.phoneNumber}"/></td>
+            <td><c:out value="${contact.email}"/></td>
+            <td>
+                <form name="submitForm" method="GET" action="${editUrl}">
+                    <input type="hidden" name="id" value="${contact.id}">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input type="submit" value="Edit"/>
+                </form>
+            </td>
+            <td>
+                <form name="submitForm" method="POST" action="${deleteUrl}">
+                    <input type="hidden" name="id" value="${contact.id}">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input type="submit" value="Delete"/>
+                </form>
+            </td>
+            <td>
+                <form name="submitForm" method="GET" action="${addUrl}">
+                    <input type="hidden" name="id" value="${contact.id}">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input type="submit" value="Add"/>
+                </form>
+            </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<div class="container">
 
-    <div class="jumbotron" style="margin-top: 20px;">
-        <h1>Devcolibri.com</h1>
-        <p class="lead">
-            Devcolibri - это сервис предоставляющий всем желающим возможность обучаться программированию.
-        </p>
-        <sec:authorize access="isAuthenticated()">
-            <p>Ваш логин: <sec:authentication property="principal.username" /></p>
-            <p><a class="btn btn-lg btn-danger" href="<c:url value="/main/logout" />" role="button">Выйти</a></p>
+<br>
+<form name="submitForm" method="POST" action="${logoutUrl}">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="submit" value="logout"/>
+</form>
 
-        </sec:authorize>
-    </div>
-
-    <div class="footer">
-        <p>© Devcolibri 2014</p>
-    </div>
-
-</div>
 
 <c:if test="${empty contacts}">
     There are currently no contacts in the list. <a href="${addUrl}">Add</a> a contact.
