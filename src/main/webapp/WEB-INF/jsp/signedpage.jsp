@@ -7,11 +7,12 @@
 <%@include file='header.jsp'%>
 <body>
 
-<h1>Contacts</h1>
-<p>You have just registered at <%= new java.util.Date() %></p>
 
-<c:url var="mainUrl" value="/main/contacts" />
-<p>Return to <a href="${mainUrl}">Main List</a></p>
+<h1>Congratulations!</h1>
+<p>You have been registered at <%= new java.util.Date() %></p>
+
+<c:url var="mainUrl" value="/main" />
+<p>Return to <a href="${mainUrl}">Main Page</a></p>
 
 </body>
 </html>

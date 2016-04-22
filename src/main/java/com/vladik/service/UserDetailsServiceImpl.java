@@ -1,4 +1,4 @@
-package com.vladik.config;
+package com.vladik.service;
 
 import com.vladik.dao.UserDao;
 import com.vladik.model.User;
@@ -20,20 +20,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserDao userDao;
 
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        // с помощью нашего сервиса UserService получаем User
         User user = userDao.findByLogin(login);
-        // указываем роли для этого пользователя
-        Set<GrantedAuthority> roles = new HashSet();
+        Set<GrantedAuthority> roles = new HashSet<>();
         roles.add(new SimpleGrantedAuthority("USER"));
-
-        // на основании полученныйх даных формируем объект UserDetails
-        // который позволит проверить введеный пользователем логин и пароль
-        // и уже потом аутентифицировать пользователя
-        UserDetails userDetails =
-                new org.springframework.security.core.userdetails.User(user.getLogin(),
-                        user.getPassword(),
-                        roles);
-
-        return userDetails;
+        return new org.springframework.security.core.userdetails.User(user.getLogin(),
+                user.getPassword(),
+                roles);
     }
 }

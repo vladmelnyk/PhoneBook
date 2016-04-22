@@ -8,7 +8,7 @@
 <body>
 
 <h1>Create New Contact</h1>
-<c:url var="saveUrl" value="/main/contacts/add" />
+<c:url var="saveUrl" value="/contacts/createview" />
 <form:form modelAttribute="contactAttribute" method="POST" action="${saveUrl}">
     <table>
         <tr>

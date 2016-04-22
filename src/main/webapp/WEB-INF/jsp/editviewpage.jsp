@@ -8,7 +8,7 @@
 <body>
 
 <h1>Edit Contact</h1>
-<c:url var="saveUrl" value="/main/contacts/edit?id=${contactAttribute.id}" />
+<c:url var="saveUrl" value="contacts/update?id=${contactAttribute.id}" />
 <form:form modelAttribute="contactAttribute" method="POST" action="${saveUrl}">
     <table>
 
