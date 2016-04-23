@@ -17,4 +17,7 @@ public interface ContactDao extends JpaRepository<Contact, Integer> {
 
     @Query(value = "SELECT c.id, c.users_id, c.first_name, c.middle_name, c.last_name, c.mobile_number, c.phone_number, c.address, c.email FROM Contacts c WHERE c.users_id = :usersId AND c.mobile_number LIKE %:mobileNumberExp%", nativeQuery = true)
     public List<Contact> searchByUserAndMobileNumber(@Param("usersId") String usersId, @Param("mobileNumberExp") String mobileNumberExp);
+
+    @Query(value = "SELECT c.id, c.users_id, c.first_name, c.middle_name, c.last_name, c.mobile_number, c.phone_number, c.address, c.email FROM Contacts c WHERE c.users_id = :usersId AND c.mobile_number LIKE %:mobileNumberExp% AND c.first_name LIKE %:firstNameExp% ", nativeQuery = true )
+    public List<Contact> searchByUserAndMobileNumberAndFirstName(@Param("usersId") String usersId, @Param("mobileNumberExp") String mobileNumberExp,  @Param("firstNameExp") String firstNameExp);
 }

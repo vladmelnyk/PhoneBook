@@ -5,43 +5,52 @@
 <html>
 <%@include file='header.jsp' %>
 <body>
-<h1>Contacts</h1>
+<h1 align="center">Contacts</h1>
 
 <c:url var="addUrl" value="/contacts/createview"/>
 <c:url var="editUrl" value="/contacts/editview"/>
 <c:url var="deleteUrl" value="/contacts/delete"/>
 <c:url var="logoutUrl" value="/main/logout"/>
-<table style="border: 1px solid; width: 800px; text-align:center">
-    <thead style="background:#cfc">
+
+<table class="table-scroll">
+    <thead style="background:#9ac3e8">
     <tr>
         <th>First Name</th>
         <th>Middle Name</th>
         <th>Last Name</th>
         <th>Mobile Number</th>
         <th>Phone Number</th>
+        <th>Address</th>
         <th>Email</th>
-        <th colspan="8"></th>
+        <th colspan="10"></th>
     </tr>
     <tr>
         <form action="/contacts" method="POST">
-            <c:forEach var="i" begin="0" end="8">
-                <th>
-                    <c:choose>
-                        <c:when test="${i==0}">
-                            <input type="TEXT" name="first_name_exp">
-                        </c:when>
-                        <c:when test="${i==3}">
-                            <input type="TEXT" name="mobile_number_exp">
-                        </c:when>
-                        <c:when test="${i==8}">
-                            <input type="SUBMIT" value="Search">
-                        </c:when>
-                    </c:choose>
-                </th>
-            </c:forEach>
-
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <c:forEach var="i" begin="0" end="9">
+            <th>
+                <c:choose>
+                <c:when test="${i==0}">
+                <input type="TEXT" name="first_name_exp">
+                </c:when>
+                <c:when test="${i==3}">
+                <input type="TEXT" name="mobile_number_exp">
+                </c:when>
+                <c:when test="${i==7}">
+                <input class="secondary button small" type="SUBMIT" value="Search">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
+        </c:when>
+        <c:when test="${i==8}">
+            <form name="submitForm" method="GET" action="${addUrl}">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input class="success button small expanded" type="submit" value="Add"/>
+            </form>
+        </c:when>
+        </c:choose>
+        </th>
+        </c:forEach>
+
+
     </tr>
     </thead>
     <tbody>
@@ -53,26 +62,20 @@
             <td><c:out value="${contact.lastName}"/></td>
             <td><c:out value="${contact.mobileNumber}"/></td>
             <td><c:out value="${contact.phoneNumber}"/></td>
+            <td><c:out value="${contact.address}"/></td>
             <td><c:out value="${contact.email}"/></td>
             <td>
                 <form name="submitForm" method="GET" action="${editUrl}">
                     <input type="hidden" name="id" value="${contact.id}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="submit" value="Edit"/>
+                    <input class="button expanded tiny" type="submit" value="Edit"/>
                 </form>
             </td>
             <td>
                 <form name="submitForm" method="POST" action="${deleteUrl}">
                     <input type="hidden" name="id" value="${contact.id}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="submit" value="Delete"/>
-                </form>
-            </td>
-            <td>
-                <form name="submitForm" method="GET" action="${addUrl}">
-                    <input type="hidden" name="id" value="${contact.id}">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input type="submit" value="Add"/>
+                    <input class="alert button tiny" type="submit" value="Delete"/>
                 </form>
             </td>
         </tr>
@@ -83,7 +86,7 @@
 <br>
 <form name="submitForm" method="POST" action="${logoutUrl}">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <input type="submit" value="logout"/>
+    <input class="alert button" type="submit" value="Log out"/>
 </form>
 
 

@@ -1,6 +1,8 @@
 package com.vladik.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -27,6 +29,7 @@ public class User {
 
     @Basic
     @Column(name = "login", nullable = false, length = 20)
+    @Pattern(regexp = "^\\w{3,}$")
     public String getLogin() {
         return login;
     }
@@ -37,6 +40,7 @@ public class User {
 
     @Basic
     @Column(name = "password", nullable = false, length = 20)
+    @Size(min = 5)
     public String getPassword() {
         return password;
     }
@@ -47,6 +51,7 @@ public class User {
 
     @Basic
     @Column(name = "first_name", nullable = true, length = 30)
+    @Size(min = 5)
     public String getFirstName() {
         return firstName;
     }
@@ -57,6 +62,7 @@ public class User {
 
     @Basic
     @Column(name = "middle_name", nullable = true, length = 30)
+    @Size(min = 5)
     public String getMiddleName() {
         return middleName;
     }
@@ -67,6 +73,7 @@ public class User {
 
     @Basic
     @Column(name = "last_name", nullable = true, length = 30)
+    @Size(min = 5)
     public String getLastName() {
         return lastName;
     }

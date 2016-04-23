@@ -1,6 +1,10 @@
 package com.vladik.model;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Contacts", schema = "Phonebook")
@@ -10,12 +14,13 @@ public class Contact {
     private String firstName;
     private String middleName;
     private String lastName;
-    private int mobileNumber;
-    private Integer phoneNumber;
+    private String mobileNumber;
+    private String phoneNumber;
     private String address;
     private String email;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -37,6 +42,7 @@ public class Contact {
 
     @Basic
     @Column(name = "first_name", nullable = false, length = 30)
+    @Size(min = 4)
     public String getFirstName() {
         return firstName;
     }
@@ -47,6 +53,7 @@ public class Contact {
 
     @Basic
     @Column(name = "middle_name", nullable = false, length = 30)
+    @Size(min = 4)
     public String getMiddleName() {
         return middleName;
     }
@@ -57,6 +64,7 @@ public class Contact {
 
     @Basic
     @Column(name = "last_name", nullable = false, length = 30)
+    @Size(min = 4)
     public String getLastName() {
         return lastName;
     }
@@ -67,26 +75,28 @@ public class Contact {
 
     @Basic
     @Column(name = "mobile_number", nullable = false)
-    public int getMobileNumber() {
+    @Pattern(regexp = "^\\+380\\d{9,}$")
+    public String getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(int mobileNumber) {
+    public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
     @Basic
     @Column(name = "phone_number", nullable = true)
-    public Integer getPhoneNumber() {
+    @Pattern(regexp = "^\\+380\\d{9,}$")
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
     @Basic
-    @Column(name = "address", nullable = true, length = 50)
+    @Column(name = "address", nullable = true, length = 70)
     public String getAddress() {
         return address;
     }
@@ -97,6 +107,7 @@ public class Contact {
 
     @Basic
     @Column(name = "email", nullable = true, length = 30)
+    @Email
     public String getEmail() {
         return email;
     }
@@ -130,7 +141,7 @@ public class Contact {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + mobileNumber;
+        result = 31 * result + (mobileNumber != null ? mobileNumber.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);

@@ -30,14 +30,14 @@ public class ContactController {
     @RequestMapping(method = RequestMethod.POST)
     public String getContactsByExpression(@RequestParam(value = "first_name_exp", required = false) String firstNameExp, @RequestParam(value = "mobile_number_exp", required = false) String mobileNumberExp, Model model) {
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Contact> contacts = null;
-        if (firstNameExp != null) {
-            contacts = contactDao.findByUserAndFirstNameContains(userDao.findByLogin(user.getUsername()), firstNameExp);
-        }
+        List<Contact> contacts = contactDao.findByUserAndFirstNameContains(userDao.findByLogin(user.getUsername()), firstNameExp);
+
         if (!mobileNumberExp.isEmpty()) {
             contacts = contactDao.searchByUserAndMobileNumber(String.valueOf(userDao.findByLogin(user.getUsername()).getId()), mobileNumberExp);
         }
-
+        if (!mobileNumberExp.isEmpty() && !firstNameExp.isEmpty()) {
+            contacts = contactDao.searchByUserAndMobileNumberAndFirstName(String.valueOf(userDao.findByLogin(user.getUsername()).getId()), mobileNumberExp, firstNameExp);
+        }
         model.addAttribute("contacts", contacts);
         return "contactspage";
     }
