@@ -1,6 +1,5 @@
 package com.vladik.controller;
 
-import com.vladik.dao.ContactDao;
 import com.vladik.dao.UserDao;
 import com.vladik.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,6 @@ public class MainController {
 
     @Autowired
     private UserDao userDao;
-    @Autowired
-    private ContactDao contactDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public String main() {

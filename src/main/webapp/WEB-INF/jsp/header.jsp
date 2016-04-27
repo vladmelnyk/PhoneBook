@@ -10,7 +10,7 @@
     <title>PhoneBook</title>
     <c:url var="mainUrl" value="/main"/>
     <div class="div_main_header">
-        <ul class="menu" >
+        <ul class="menu">
             <li class="active">
                 <a href="${mainUrl}">Main Page</a>
             </li>

@@ -50,7 +50,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "first_name", nullable = true, length = 30)
+    @Column(name = "first_name", length = 30)
     @Size(min = 5)
     public String getFirstName() {
         return firstName;
@@ -61,7 +61,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "middle_name", nullable = true, length = 30)
+    @Column(name = "middle_name", length = 30)
     @Size(min = 5)
     public String getMiddleName() {
         return middleName;
@@ -72,7 +72,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "last_name", nullable = true, length = 30)
+    @Column(name = "last_name", length = 30)
     @Size(min = 5)
     public String getLastName() {
         return lastName;
@@ -103,9 +103,8 @@ public class User {
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
 
-        return true;
     }
 
     @Override
@@ -127,8 +126,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", number of contacts=" + contacts.size() +
+                ", lastName='" + lastName + '\''  +
                 '}';
     }
 

@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Contacts", schema = "Phonebook")
@@ -85,7 +86,7 @@ public class Contact {
     }
 
     @Basic
-    @Column(name = "phone_number", nullable = true)
+    @Column(name = "phone_number")
     @Pattern(regexp = "^\\+380\\d{9,}$")
     public String getPhoneNumber() {
         return phoneNumber;
@@ -96,7 +97,7 @@ public class Contact {
     }
 
     @Basic
-    @Column(name = "address", nullable = true, length = 70)
+    @Column(name = "address", length = 70)
     public String getAddress() {
         return address;
     }
@@ -106,7 +107,7 @@ public class Contact {
     }
 
     @Basic
-    @Column(name = "email", nullable = true, length = 30)
+    @Column(name = "email", length = 30)
     @Email
     public String getEmail() {
         return email;
@@ -124,15 +125,13 @@ public class Contact {
         Contact that = (Contact) o;
 
         if (id != that.id) return false;
-        if (mobileNumber != that.mobileNumber) return false;
+        if (!Objects.equals(mobileNumber, that.mobileNumber)) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (phoneNumber != null ? !phoneNumber.equals(that.phoneNumber) : that.phoneNumber != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        return address != null ? address.equals(that.address) : that.address == null && (email != null ? email.equals(that.email) : that.email == null);
 
-        return true;
     }
 
     @Override

@@ -83,16 +83,15 @@
     </tbody>
 </table>
 
+<c:if test="${empty contacts}">
+    There are currently no contacts in the list. Please, <a href="${addUrl}">Add</a> a contact.
+</c:if>
 <br>
 <form name="submitForm" method="POST" action="${logoutUrl}">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input class="alert button" type="submit" value="Log out"/>
 </form>
 
-
-<c:if test="${empty contacts}">
-    There are currently no contacts in the list. <a href="${addUrl}">Add</a> a contact.
-</c:if>
 
 </body>
 </html>
