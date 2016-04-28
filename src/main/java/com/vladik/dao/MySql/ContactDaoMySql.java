@@ -1,5 +1,6 @@
-package com.vladik.dao;
+package com.vladik.dao.mysql;
 
+import com.vladik.dao.ContactDao;
 import com.vladik.model.Contact;
 import com.vladik.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +14,6 @@ import java.util.List;
 @Transactional
 @Repository
 public interface ContactDaoMySql extends JpaRepository<Contact, Integer>, ContactDao {
-    List<Contact> findByUser(User user);
 
     List<Contact> findByUserAndFirstNameContains(User user, String expression);
 

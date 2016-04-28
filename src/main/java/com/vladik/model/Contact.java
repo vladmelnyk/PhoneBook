@@ -1,5 +1,6 @@
 package com.vladik.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Objects;
 @Table(name = "Contacts", schema = "Phonebook")
 public class Contact {
     private int id;
+    @JsonIgnore
     private User user;
     private String firstName;
     private String middleName;
@@ -19,6 +21,7 @@ public class Contact {
     private String phoneNumber;
     private String address;
     private String email;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +36,7 @@ public class Contact {
 
     @ManyToOne
     @JoinColumn(name = "users_id")
+
     public User getUser() {
         return user;
     }
@@ -116,6 +120,7 @@ public class Contact {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
     @Override
     public boolean equals(Object o) {

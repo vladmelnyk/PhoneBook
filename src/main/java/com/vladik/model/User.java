@@ -15,7 +15,6 @@ public class User {
     private String middleName;
     private String lastName;
     private List<Contact> contacts;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -83,6 +82,7 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+
     public List<Contact> getContacts() {
         return contacts;
     }
@@ -90,6 +90,7 @@ public class User {
     public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
     }
+
 
     @Override
     public boolean equals(Object o) {

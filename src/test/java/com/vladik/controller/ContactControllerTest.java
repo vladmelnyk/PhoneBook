@@ -1,7 +1,7 @@
 package com.vladik.controller;
 
 import com.vladik.Application;
-import com.vladik.dao.ContactDaoMySql;
+import com.vladik.dao.mysql.ContactDaoMySql;
 import com.vladik.dao.UserDao;
 import com.vladik.model.Contact;
 import com.vladik.model.User;

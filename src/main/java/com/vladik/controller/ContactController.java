@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Controller
 @RequestMapping("/contacts")
 public class ContactController {
 
-    @Autowired
+    @Resource(name = "${implementation.user}")
     private UserDao userDao;
-    @Autowired
-    @Qualifier("contactDaoMySql")
+    @Resource(name = "${implementation.contact}")
     private ContactDao contactDao;
 
     @RequestMapping(method = RequestMethod.GET)

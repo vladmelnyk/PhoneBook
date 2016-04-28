@@ -2,18 +2,19 @@ package com.vladik.controller;
 
 import com.vladik.dao.UserDao;
 import com.vladik.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.Resource;
+
 @Controller
 @RequestMapping("/main")
 public class MainController {
 
-    @Autowired
+    @Resource(name = "${implementation.user}")
     private UserDao userDao;
 
     @RequestMapping(method = RequestMethod.GET)
