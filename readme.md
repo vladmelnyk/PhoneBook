@@ -1,5 +1,22 @@
-/* Scripts to Create MySQL Database Phonebook */
+PhoneBook is my freelance project. 
+Main features: 
+  * ability to keep separate contact list for each registered client
+  * ability to perform CRUD operations with client's contacts
+  * ability to search by name/number for incomplete words/numbers
+  * ability to save only those recordings which are valid
+  * ability to redirect to main page if client is not signed in / signed up
+  * ability to have multiple datasources (MySQL + JSON)
 
+Technologies used: Srping Boot, Spring IoC, Spring MVC, Spring Data JPA, Spring Security, Jackson, Mockito, JUnit, Foundation 
+
+![alt tag](https://www.dropbox.com/s/gdyvk77bj2vklpv/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%202016-06-27%2019.52.35.png?dl=0)
+![alt tag](https://www.dropbox.com/s/ara66kcq8jqikzy/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%202016-06-27%2019.59.54.png?dl=0)
+To run application, please execute the following command in Maven:
+
+1) MySQL profile: spring-boot:run -Dspring.profiles.active=local -Duser.impl="userDaoMySql" -Dcontact.impl="contactDaoMySql"
+2) Jackson profile: spring-boot:run -Dspring.profiles.active=local -Duser.impl="userDaoFile" -Dcontact.impl="contactDaoFile"
+
+Scripts to Create MySQL Database Phonebook :
 
 CREATE SCHEMA `Phonebook`;
 
